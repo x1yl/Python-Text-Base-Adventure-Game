@@ -53,7 +53,7 @@ class Game:
                 print("3. 🧪 Use items")
                 print("4. 💬 Talk to NPCs")
                 print("5. 🚪 Quit")
-            
+
                 choice = input("What would you like to do? ")
 
                 if choice == "1":
@@ -65,10 +65,25 @@ class Game:
                             print("\n💀 Game Over! You have been defeated!")
                             break
                     else:
-                        # Random gold
-                        found_gold = random.randint(1, 10)
-                        player.inventory["gold"] += found_gold
-                        print(f"💰 You found {found_gold} gold!")
+                        # Random rewards - 70% gold, 30% items
+                        if random.random() < 0.7:
+                            found_gold = random.randint(1, 10)
+                            player.inventory["gold"] += found_gold
+                            print(f"💰 You found {found_gold} gold!")
+                        else:
+                            # Random item drop
+                            possible_items = [
+                                "health_potion",
+                                "strength_potion",
+                                "magic_scroll",
+                            ]
+                            found_item = random.choice(possible_items)
+                            player.inventory[found_item] = (
+                                player.inventory.get(found_item, 0) + 1
+                            )
+                            if found_item == "magic_scroll":
+                                player.quest_items["magic_scroll"] += 1
+                            print(f"✨ You found a {ITEMS[found_item].name}!")
                         break
 
                 elif choice == "2":

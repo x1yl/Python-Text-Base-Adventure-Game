@@ -22,11 +22,34 @@ class Item:
 
 # Game items
 ITEMS = {
-    "health_potion": Item("Health Potion", "Restores 30 HP", 20, {"heal": 30}),
-    "strength_potion": Item(
-        "Strength Potion", "Increases attack by 10", 30, {"attack": 10}
+    "health_potion": Item(
+        "Health Potion",
+        "Restores 30 HP",
+        20,
+        {"heal": 30},
     ),
-    "shield": Item("Iron Shield", "Increases defense by 5", 50, {"defense": 5}),
-    "sword": Item("Steel Sword", "Increases attack by 8", 45, {"attack": 8}),
-    "magic_scroll": Item("Magic Scroll", "Deals 25 damage", 25, {"damage": 25}),
+    "strength_potion": Item(
+        "Strength Potion",
+        "Increases attack by 10",
+        30,
+        {"attack": 10},
+    ),
+    "shield": Item(
+        "Iron Shield",
+        "Increases defense by 5",
+        50,
+        {"defense": 5},
+    ),
+    "sword": Item(
+        "Steel Sword",
+        "Increases attack by 8",
+        45,
+        {"attack": 8},
+    ),
+    "magic_scroll": Item(
+        "Magic Scroll",
+        "Deals 25 damage",
+        25,
+        {"damage": 25},
+    ),
 }

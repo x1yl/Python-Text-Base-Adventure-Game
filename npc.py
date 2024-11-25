@@ -1,6 +1,7 @@
 # npc.py
 from player import Player
 from item import ITEMS, Item
+import random
 
 
 class NPC:
@@ -33,7 +34,55 @@ class NPC:
             elif choice == "2":
                 print(f"\n{self.name} shares some wisdom...")
                 if self.name == "Elder Wizard":
-                    print(self.dialog["quest"])
+                    if player.quest_items["magic_scroll"] >= 3:
+                        print(self.dialog["complete"])
+                        player.quest_items["magic_scroll"] -= 3
+
+                        # Random reward selection
+                        reward_type = random.choice(["effect", "item"])
+                        if reward_type == "effect":
+                            effect_type = random.choice(
+                                [
+                                    ("attack", 15, "🗡️ Attack"),
+                                    ("defense", 10, "🛡️ Defense"),
+                                    ("max_health", 25, "❤️ Max Health"),
+                                ]
+                            )
+                            if effect_type[0] == "attack":
+                                player.attack += effect_type[1]
+                            elif effect_type[0] == "defense":
+                                player.defense += effect_type[1]
+                            elif (
+                                effect_type[0] == "max_health"
+                                and player.health == player.max_health
+                            ):
+                                player.health += effect_type[1]
+                            if effect_type[0] == "max_health":
+                                player.max_health += effect_type[1]
+
+                            print(
+                                f"🌟 You learned a powerful spell! {effect_type[2]} increased by {effect_type[1]}!"
+                            )
+                        else:
+                            reward_item = random.choice(
+                                [
+                                    ("sword", "Steel Sword"),
+                                    ("shield", "Iron Shield"),
+                                    ("strength_potion", "Strength Potion"),
+                                    ("health_potion", "Health Potion"),
+                                ]
+                            )
+                            player.inventory[reward_item[0]] = (
+                                player.inventory.get(reward_item[0], 0) + 2
+                            )
+                            print(
+                                f"🎁 The wizard rewards you with two {reward_item[1]}s!"
+                            )
+                    else:
+                        print(f"{self.dialog['quest']}")
+                        print(
+                            f"Current progress: {player.quest_items['magic_scroll']}/3 Magic Scrolls"
+                        )
             elif choice == "3":
                 print(f"\n{self.name}: {self.dialog['farewell']}")
                 break

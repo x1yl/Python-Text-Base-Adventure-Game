@@ -13,6 +13,7 @@ class Player:
         self.inventory = {"health_potion": 2, "gold": 0}
         self.location = "a abandoned village"
         self.active_effects = {}
+        self.quest_items = {"magic_scroll": 0}
 
     def use_item(self) -> bool:
         self.display_inventory()
@@ -37,6 +38,7 @@ class Player:
                 item = ITEMS.get(item_name)
                 if item:
                     print(f"{item_name}: {quantity}")
+
     def attack_enemy(self, enemy) -> int:
         damage = max(1, self.attack - enemy.defense + random.randint(-5, 5))
         enemy.health -= damage
@@ -47,8 +49,10 @@ class Player:
         print(f"\n{enemy.symbol} A {enemy.name} appears!")
 
         while enemy.health > 0 and self.health > 0:
-            print(f"\n❤️ Your Health: {self.health} | {enemy.name}'s Health: {enemy.health}")
-            
+            print(
+                f"\n❤️ Your Health: {self.health} | {enemy.name}'s Health: {enemy.health}"
+            )
+
             while True:
                 action = input("What would you like to do? [attack/item/run]: ").lower()
 
